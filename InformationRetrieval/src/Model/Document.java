@@ -40,5 +40,9 @@ public class Document {
     public void setContent(String content) {
         this.content = content;
     }
+    
+    public String[] getListofTerm(){
+        return null;
+    }
 
 }
