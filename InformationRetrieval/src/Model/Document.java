@@ -10,5 +10,35 @@ package Model;
  * @author admin
  */
 public class Document {
+    private int id;
+    private String content;
+
+    public Document() {
+    }
     
+    public Document(String content) {
+        this.content = content;
+    }
+    
+    public Document(int id, String content) {
+        this.id = id;
+        this.content = content;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
 }
