@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 public class InvertedIndex {
 
     private ArrayList<Document> listOfDocument = new ArrayList<Document>();
-//    private ArrayList<Posting> postingList = new ArrayList<Posting>();
+    private ArrayList<Term> dictionary = new ArrayList<Term>();
 
     public InvertedIndex() {
     }
@@ -52,6 +52,10 @@ public class InvertedIndex {
         list = this.getUnsortedPostingList();
         Collections.sort(list);
         return list;
+    }
+    
+    public void makeDictionary(){
+        //PR dijadikan inverted Index dari sorted Posting List
     }
     
 }
