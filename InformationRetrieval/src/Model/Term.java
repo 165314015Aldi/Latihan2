@@ -5,19 +5,24 @@
  */
 package Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author admin
  */
 public class Term {
     private String term;
-    private PostingList termList;
+    private ArrayList<Posting> postingList = new ArrayList<Posting>();
 
-    public Term(String term, PostingList termList) {
+    public Term(String term) {
         this.term = term;
-        this.termList = termList;
     }
 
+    public int getNumberOfTerms(){
+        return postingList.size();
+    }
+    
     public String getTerm() {
         return term;
     }
@@ -26,13 +31,13 @@ public class Term {
         this.term = term;
     }
 
-    public PostingList getTermList() {
-        return termList;
+    public ArrayList<Posting> getPostingList() {
+        return postingList;
     }
 
-    public void setTermList(PostingList termList) {
-        this.termList = termList;
+    public void setPostingList(ArrayList<Posting> postingList) {
+        this.postingList = postingList;
     }
-    
+
     
 }
