@@ -9,7 +9,7 @@ package Model;
  *
  * @author admin
  */
-public class Posting {
+public class Posting implements Comparable<Posting>{
     private String term;
     private Document document;
 
@@ -36,6 +36,11 @@ public class Posting {
 
     public void setDocument(Document document) {
         this.document = document;
+    }
+
+    @Override
+    public int compareTo(Posting o) {
+        return term.compareToIgnoreCase(o.getTerm());
     }
     
     

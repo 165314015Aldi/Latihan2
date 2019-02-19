@@ -7,6 +7,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -46,6 +47,11 @@ public class InvertedIndex {
         return list;
     }
     
-    
+    public ArrayList<Posting> getSortedPostingList(){
+        ArrayList<Posting> list = new ArrayList<Posting>();
+        list = this.getUnsortedPostingList();
+        Collections.sort(list);
+        return list;
+    }
     
 }

@@ -27,7 +27,7 @@ public class testDocument2 {
         index.addNewDocument(doc2);
         index.addNewDocument(doc3);
         //panggil function unsorted Posting List
-        ArrayList<Posting> list = index.getUnsortedPostingList();
+        ArrayList<Posting> list = index.getSortedPostingList();
         //panggil list posting
         System.out.println("Ukuran list : " + list.size());
         for (int i = 0; i < list.size(); i++) {
