@@ -42,7 +42,8 @@ public class Document {
     }
     
     public String[] getListofTerm(){
-        return null;
+        String[] pisah = content.split(" ");
+        return pisah;
     }
 
 }
