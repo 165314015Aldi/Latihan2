@@ -19,7 +19,7 @@ public class Term implements Comparable<Term>{
         this.term = term;
     }
 
-    public int getNumberOfTerms(){
+    public int getNumberOfDocument(){
         return postingList.size();
     }
     

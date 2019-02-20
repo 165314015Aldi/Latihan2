@@ -29,6 +29,24 @@ public class InvertedIndex {
         this.listOfDocument.add(document);
     }
 
+    public ArrayList<Document> getListOfDocument() {
+        return listOfDocument;
+    }
+
+    public void setListOfDocument(ArrayList<Document> listOfDocument) {
+        this.listOfDocument = listOfDocument;
+    }
+
+    public ArrayList<Term> getDictionary() {
+        return dictionary;
+    }
+
+    public void setDictionary(ArrayList<Term> dictionary) {
+        this.dictionary = dictionary;
+    }
+    
+    
+
     public ArrayList<Posting> getUnsortedPostingList() {
         //siapkan posting listnya
         ArrayList<Posting> list = new ArrayList<Posting>();
@@ -65,6 +83,8 @@ public class InvertedIndex {
                 Term term = new Term(list.get(i).getTerm());
                 //tambah posting list untuk term ini
                 term.getPostingList().add(list.get(i));
+                //tambah ke dictionary
+                getDictionary().add(term);
             }else{
                 //dictionary sudah ada isinya
                 //buat term baru
