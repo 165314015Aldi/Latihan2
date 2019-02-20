@@ -77,9 +77,12 @@ public class InvertedIndex {
                     tempTerm.getPostingList().add(list.get(i));
                     //tambahkan term ke dictionary
                     dictionary.add(tempTerm);
-                    
                 }else{
                     //term ada
+                    //tambahkan posting list saja dari existing term
+                    dictionary.get(position).getPostingList().add(list.get(i));
+                    //urutkan posting list
+                    Collections.sort(dictionary.get(position).getPostingList());
                 }
                 //urutkan term dictionary
                 Collections.sort(dictionary);
