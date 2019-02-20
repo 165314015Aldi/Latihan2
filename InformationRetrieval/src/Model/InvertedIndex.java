@@ -55,7 +55,36 @@ public class InvertedIndex {
     }
     
     public void makeDictionary(){
-        //PR dijadikan inverted Index dari sorted Posting List
+        //buat posting term terurut
+        ArrayList<Posting> list = getSortedPostingList();
+        //looping buat list of term (dictionary)
+        for (int i = 0; i < list.size(); i++) {
+            //cek dictionary kosong atau tidak
+            if (dictionary.isEmpty()) {
+                //buat term
+                Term term = new Term(list.get(i).getTerm());
+                //tambah posting list untuk term ini
+                term.getPostingList().add(list.get(i));
+            }else{
+                //dictionary sudah ada isinya
+                //buat term baru
+                Term tempTerm = new Term(list.get(i).getTerm());
+                //pembandingan apakah term sudah ada atau belum
+                int position = Collections.binarySearch(dictionary, tempTerm);//keluarannya berupa posisi indeksnya
+                if (position<0) {
+                    //term baru
+                    //tambah posting list ke term 
+                    tempTerm.getPostingList().add(list.get(i));
+                    //tambahkan term ke dictionary
+                    dictionary.add(tempTerm);
+                    
+                }else{
+                    //term ada
+                }
+                //urutkan term dictionary
+                Collections.sort(dictionary);
+            }
+        }
     }
     
 }
