@@ -34,7 +34,9 @@ public class testDocument3 {
             Term tempTerm = index.getDictionary().get(i);
             System.out.println(tempTerm.getTerm()+" , "+tempTerm.getNumberOfDocument());
             for (int j = 0; j < tempTerm.getNumberOfDocument(); j++) {
-                
+                Posting tempPosting = tempTerm.getPostingList().get(j);
+                Document tempDoc = tempPosting.getDocument();
+                System.out.println("idDoc = "+tempDoc.getId());
             }
         }
     }
