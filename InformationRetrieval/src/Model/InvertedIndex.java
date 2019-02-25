@@ -50,7 +50,12 @@ public class InvertedIndex {
         makeDictionary();
         String[] tempQuery = query.split(" ");
         for (int i = 0; i < tempQuery.length; i++) {
-            
+            String kata = tempQuery[i];
+            if (getDictionary().isEmpty()) {
+                return null;
+            }else{
+//                int indeks = Collections.binarySearch(dictionary, kata);
+            }
         }
         return null;
     }
