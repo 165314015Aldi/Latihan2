@@ -204,5 +204,15 @@ public class InvertedIndex {
             }
         }
     }
+    
+    //fungsi mencari frekuensi sebuah term dalam sebuah index
+    public int getDocumentFrequency(String term){
+        return 0;
+    }
+    
+    //fungsi untuk mencari invers term dari sebuah index
+    public double getInverseDocumentFrequency(String term){
+        return 0;
+    }
 
 }
