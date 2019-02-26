@@ -21,6 +21,7 @@ public class InvertedIndex {
 
     private ArrayList<Document> listOfDocument = new ArrayList<Document>();
     private ArrayList<Term> dictionary = new ArrayList<Term>();
+    private int numberOfTerm = 1;
 
     public InvertedIndex() {
     }
@@ -149,6 +150,8 @@ public class InvertedIndex {
             for (int j = 0; j < termResult.length; j++) {
                 //buat object tempPosting
                 Posting tempPosting = new Posting(termResult[j], listOfDocument.get(i));
+                //cek kemunculan term
+                
                 list.add(tempPosting);
             }
         }
@@ -163,6 +166,8 @@ public class InvertedIndex {
     }
 
     public void makeDictionary() {
+        //Cek deteksi ada term yang frekuensinya lebih dari 1 di dalam dokumen
+        
         //buat posting term terurut
         ArrayList<Posting> list = getSortedPostingList();
         //looping buat list of term (dictionary)
