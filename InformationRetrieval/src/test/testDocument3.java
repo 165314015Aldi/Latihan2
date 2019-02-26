@@ -18,26 +18,31 @@ import java.util.ArrayList;
 public class testDocument3 {
 
     public static void main(String[] args) {
-        Document doc1 = new Document(1, "computer information retrieval");
+        // seting dokumen
+        Document doc1 = new Document(1, "computer information retrieval.");
         Document doc2 = new Document(2, "computer organization and architecture");
-        Document doc3 = new Document(3, "machine learning architecture");
-        //buat object inverted index
-        InvertedIndex index = new InvertedIndex();
-        //tambahkan dokumen ke Index
-        index.addNewDocument(doc1);
-        index.addNewDocument(doc2);
-        index.addNewDocument(doc3);
-        //panggil fungsi make dictionary
-        index.makeDictionary();
-        //panggiil term yang ada dan jumlah posting
-        for (int i = 0; i < index.getDictionary().size(); i++) {
-            Term tempTerm = index.getDictionary().get(i);
-            System.out.println(tempTerm.getTerm()+" , "+tempTerm.getNumberOfDocument());
-            for (int j = 0; j < tempTerm.getNumberOfDocument(); j++) {
-                Posting tempPosting = tempTerm.getPostingList().get(j);
-                Document tempDoc = tempPosting.getDocument();
-                System.out.println("idDoc = "+tempDoc.getId());
+        ArrayList<Document> listOfDocument = new ArrayList<Document>();
+        listOfDocument.add(doc1);
+        listOfDocument.add(doc2);
+        // siapkan posting List
+        ArrayList<Posting> list = new ArrayList<Posting>();
+        // buat node Posting utk listofdocument
+        for (int i = 0; i < listOfDocument.size(); i++) {
+            // buat listOfTerm dari document ke -i
+            String[] termResult = listOfDocument.get(i).getListofTerm();
+            // loop sebanyak term dari document ke i
+            for (int j = 0; j < termResult.length; j++) {
+                // buat object tempPosting
+                Posting tempPosting = new Posting(termResult[j],
+                        listOfDocument.get(i));
+                list.add(tempPosting);
             }
+        }
+
+        // panggil list posting
+        System.out.println("Ukuran list = " + list.size());
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i).getTerm() + "," + list.get(i).getDocument().getId());
         }
     }
 }

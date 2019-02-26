@@ -14,32 +14,17 @@ import java.util.ArrayList;
  * @author admin
  */
 public class testDocument1 {
-
     public static void main(String[] args) {
-        Document doc1 = new Document(1, "computer information retrieval");
+        Document doc1 = new Document(1, "computer information retrieval.");
         Document doc2 = new Document(2, "computer organization and architecture");
-        ArrayList<Document> listofDocument = new ArrayList<Document>();
-        listofDocument.add(doc1);
-        listofDocument.add(doc2);
-        //siapkan posting listnya
-        ArrayList<Posting> list = new ArrayList<Posting>();
-
-        //buat node posting untuk doc1
-        for (int i = 0; i < listofDocument.size(); i++) {
-            //buat list of term dari document ke i
-            String[] termResult = listofDocument.get(i).getListofTerm();
-            //loop sebanyak term dari document ke i
-            for (int j = 0; j < termResult.length; j++) {
-                //buat object tempPosting
-                Posting tempPosting = new Posting(termResult[j], listofDocument.get(i));
-                list.add(tempPosting);
-            }
+        String result[] = doc1.getListofTerm();
+        for (int i = 0; i < result.length; i++) {
+            System.out.println("term "+i+" = "+result[i]);
         }
-
-        //panggil list posting
-        System.out.println("Ukuran list : " + list.size());
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getTerm() + " , " + list.get(i).getDocument().getId());
+        String result1[] = doc2.getListofTerm();
+        for (int i = 0; i < result1.length; i++) {
+            System.out.println("term "+i+" = "+result1[i]);
         }
+        
     }
 }

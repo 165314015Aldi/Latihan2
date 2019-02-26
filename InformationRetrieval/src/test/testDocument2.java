@@ -15,23 +15,34 @@ import java.util.ArrayList;
  * @author admin
  */
 public class testDocument2 {
-
     public static void main(String[] args) {
-        Document doc1 = new Document(1, "computer information retrieval");
+        // seting dokumen
+        Document doc1 = new Document(1, "computer information retrieval.");
         Document doc2 = new Document(2, "computer organization and architecture");
-        Document doc3 = new Document(3, "machine learning architecture");
-        //buat object inverted index
-        InvertedIndex index = new InvertedIndex();
-        //tambahkan dokumen ke Index
-        index.addNewDocument(doc1);
-        index.addNewDocument(doc2);
-        index.addNewDocument(doc3);
-        //panggil function unsorted Posting List
-        ArrayList<Posting> list = index.getSortedPostingList();
-        //panggil list posting
-        System.out.println("Ukuran list : " + list.size());
+        // tokenisasi dokumen
+        String tokenDoc1[] = doc1.getListofTerm();
+        String tokenDoc2[] = doc2.getListofTerm();
+        // siapkan posting List
+        ArrayList<Posting> list = new ArrayList<Posting>();
+        // buat node Posting utk doc1
+        for (int i = 0; i < tokenDoc1.length; i++) {
+            // buat temp Posting
+            Posting tempPosting = new Posting(tokenDoc1[i],doc1);
+            // masukkan ke list
+            list.add(tempPosting);
+        }
+        // buat node Posting utk doc2
+        for (int i = 0; i < tokenDoc2.length; i++) {
+            // buat temp Posting
+            Posting tempPosting = new Posting(tokenDoc2[i],doc2);
+            // masukkan ke list
+            list.add(tempPosting);
+        }
+        
+        // panggil list posting
+        System.out.println("Ukuran list = "+list.size());
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getTerm() + " , " + list.get(i).getDocument().getId());
+            System.out.println(list.get(i).getTerm()+","+list.get(i).getDocument().getId());
         }
     }
 }

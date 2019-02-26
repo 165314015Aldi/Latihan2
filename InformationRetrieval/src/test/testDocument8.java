@@ -8,14 +8,13 @@ package test;
 import Model.Document;
 import Model.InvertedIndex;
 import Model.Posting;
-import Model.Term;
 import java.util.ArrayList;
 
 /**
  *
  * @author admin
  */
-public class testDocument4 {
+public class testDocument8 {
 
     public static void main(String[] args) {
         // seting dokumen
@@ -29,12 +28,18 @@ public class testDocument4 {
         index.addNewDocument(doc1);
         index.addNewDocument(doc2);
         index.addNewDocument(doc3);
-        // panggil function unsorted Posting List
-        ArrayList<Posting> list = index.getUnsortedPostingList();
-        // panggil list posting
-        System.out.println("Ukuran list = " + list.size());
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getTerm() + "," + list.get(i).getDocument().getId());
+        // panggil fungsi search
+        index.makeDictionary();
+        ArrayList<Posting> result = index.searchOneWord("computer");
+        // panggil fungsi search
+        ArrayList<Posting> result1 = index.searchOneWord("architecture");
+        // pangging fungsi instersect
+        ArrayList<Posting> join = index.intersection(result1, result);
+        // tampilkan isi document dan id-nya
+        for (int i = 0; i < join.size(); i++) {
+            System.out.println("id_doc = " +join.get(i).getDocument().getId());
+            System.out.println(join.get(i).getDocument().getContent());
         }
+        
     }
 }

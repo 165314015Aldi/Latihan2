@@ -8,14 +8,13 @@ package test;
 import Model.Document;
 import Model.InvertedIndex;
 import Model.Posting;
-import Model.Term;
 import java.util.ArrayList;
 
 /**
  *
  * @author admin
  */
-public class testDocument4 {
+public class testDocument5 {
 
     public static void main(String[] args) {
         // seting dokumen
@@ -29,8 +28,8 @@ public class testDocument4 {
         index.addNewDocument(doc1);
         index.addNewDocument(doc2);
         index.addNewDocument(doc3);
-        // panggil function unsorted Posting List
-        ArrayList<Posting> list = index.getUnsortedPostingList();
+        // panggil function sorted Posting List
+        ArrayList<Posting> list = index.getSortedPostingList();
         // panggil list posting
         System.out.println("Ukuran list = " + list.size());
         for (int i = 0; i < list.size(); i++) {
