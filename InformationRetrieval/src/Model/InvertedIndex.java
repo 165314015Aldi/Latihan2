@@ -46,22 +46,23 @@ public class InvertedIndex {
     }
 
     public ArrayList<Posting> search(String query) {
-        //buat index dictionary
-        makeDictionary();
+//        makeDictionary();
         String[] tempQuery = query.split(" ");
+        ArrayList<Posting> tempPosting = new ArrayList<>();
         for (int i = 0; i < tempQuery.length; i++) {
-            String kata = tempQuery[i];
-            if (getDictionary().isEmpty()) {
-                return null;
+            String string = tempQuery[i];
+            if (i == 0) {
+                tempPosting = searchOneWord(tempQuery[i]);
             } else {
-//                int indeks = Collections.binarySearch(dictionary, kata);
+                ArrayList<Posting> tempPosting1 = searchOneWord(tempQuery[i]);
+                tempPosting = intersection(tempPosting, tempPosting1);
             }
         }
-        return null;
+        return tempPosting;
     }
 
-    public ArrayList<Posting> searchOneWord(String word) {
-        Term tempTerm = new Term(word);
+    public ArrayList<Posting> searchOneWord(String query) {
+        Term tempTerm = new Term(query);
         if (getDictionary().isEmpty()) {
             // dictionary kosong
             return null;
@@ -75,7 +76,7 @@ public class InvertedIndex {
             }
         }
     }
-    
+
     public ArrayList<Posting> intersection(ArrayList<Posting> p1,
             ArrayList<Posting> p2) {
         // mengecek p1 atau p2 sama dengan null?
@@ -88,7 +89,7 @@ public class InvertedIndex {
         // menyiapkan variable p1Index dan p2Index
         int p1Index = 0;
         int p2Index = 0;
-        
+
         // menyiapkan variable post1 dan post2 bertipe Posting 
         Posting post1 = p1.get(p1Index);
         Posting post2 = p2.get(p2Index);
@@ -102,7 +103,7 @@ public class InvertedIndex {
                     // p1Index dan p2Index bertambah 1
                     p1Index++;
                     p2Index++;
-                    
+
                     post1 = p1.get(p1Index);
                     post2 = p2.get(p2Index);
                 } catch (Exception ex) {
@@ -121,8 +122,7 @@ public class InvertedIndex {
                     break;
                 }
 
-            } 
-            else {
+            } else {
                 try {
                     // p2Index bertambah 1
                     p2Index++;
@@ -133,7 +133,7 @@ public class InvertedIndex {
                 }
             }
         }
-        // mengembalikan nilai tempPosting
+        // mengembalikan tempPosting
         return tempPostings;
     }
 
