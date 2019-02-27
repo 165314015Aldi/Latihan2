@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author admin
@@ -42,8 +44,32 @@ public class Document {
     }
     
     public String[] getListofTerm(){
-        String[] pisah = content.split(" ");
-        return pisah;
+        String value = this.getContent();
+        value = value.replaceAll("[.,?!]", "");
+        return value.split(" ");
     }
 
+    public ArrayList<Posting> getListofPosting(){
+        //panggil fungsi getlistofterm
+        //buat object arraylistPosting result untuk menampung hasil
+        //buat looping sebanyak list of term
+            //di dalam looping
+            //cek jika term pertama maka
+                //buat object tempPosting
+                //set atribut documentnya, gunakan this
+                //tambahkan ke Arraylist Result
+            //lainnya
+                //sorting ArrayList result
+                //cek apakah tersm sudah ada, maka gunakan fungsi search dengan keluaran indeks objek yang memenuhi
+                //jika hasil cari kurang dari 0 (objek tidak ada)
+                    //buat object TempPosting
+                    //set atribut documentnya, gunakan this
+                    //tambahkan ke ArrayList Result
+                //lainnya (objek ada)
+                    //ambil postingnya, tambahkan 1 ke numberoftermnya 
+                    //dengan fungsi 
+                    //int TempNumber = get(indeks hasil cari).
+        return null;
+    }
+    
 }

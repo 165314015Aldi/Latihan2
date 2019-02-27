@@ -21,7 +21,6 @@ public class InvertedIndex {
 
     private ArrayList<Document> listOfDocument = new ArrayList<Document>();
     private ArrayList<Term> dictionary = new ArrayList<Term>();
-    private int numberOfTerm = 1;
 
     public InvertedIndex() {
     }

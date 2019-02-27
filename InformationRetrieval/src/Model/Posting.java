@@ -12,6 +12,7 @@ package Model;
 public class Posting implements Comparable<Posting>{
     private String term;
     private Document document;
+    private int numberOfTerm = 1;
 
     public Posting(Document document) {
         this.document = document;
@@ -20,6 +21,14 @@ public class Posting implements Comparable<Posting>{
     public Posting(String term,Document document) {
         this.term = term;
         this.document = document;
+    }
+
+    public int getNumberOfTerm() {
+        return numberOfTerm;
+    }
+
+    public void setNumberOfTerm(int numberOfTerm) {
+        this.numberOfTerm = numberOfTerm;
     }
 
     public String getTerm() {
