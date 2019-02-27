@@ -150,7 +150,27 @@ public class InvertedIndex {
                 //buat object tempPosting
                 Posting tempPosting = new Posting(termResult[j], listOfDocument.get(i));
                 //cek kemunculan term
-                
+
+                list.add(tempPosting);
+            }
+        }
+        return list;
+    }
+
+    public ArrayList<Posting> getUnsortedPostingListWithTermNumber() {
+        // cek untuk term yang muncul lebih dari 1 kali
+        // siapkan posting List
+        ArrayList<Posting> list = new ArrayList<Posting>();
+        // buat node Posting utk listofdocument
+        for (int i = 0; i < getListOfDocument().size(); i++) {
+            // buat listOfTerm dari document ke -i
+            //String[] termResult = getListOfDocument().get(i).getListofTerm();
+            ArrayList<Posting> postingDocument = getListOfDocument().get(i).getListofPosting();
+            // loop sebanyak term dari document ke i
+            for (int j = 0; j < postingDocument.size(); j++) {
+                // ambil objek posting
+                Posting tempPosting = postingDocument.get(j);
+                // cek kemunculan term
                 list.add(tempPosting);
             }
         }
@@ -164,9 +184,19 @@ public class InvertedIndex {
         return list;
     }
 
+    public ArrayList<Posting> getSortedPostingListWithTermNumber() {
+        // siapkan posting List
+        ArrayList<Posting> list = new ArrayList<Posting>();
+        // panggil list yang belum terurut
+        list = this.getUnsortedPostingListWithTermNumber();
+        // urutkan
+        Collections.sort(list);
+        return list;
+    }
+
     public void makeDictionary() {
         //Cek deteksi ada term yang frekuensinya lebih dari 1 di dalam dokumen
-        
+
         //buat posting term terurut
         ArrayList<Posting> list = getSortedPostingList();
         //looping buat list of term (dictionary)
@@ -203,14 +233,58 @@ public class InvertedIndex {
             }
         }
     }
-    
+
+    public void makeDictionaryWithTermNumber() {
+        // cek deteksi ada term yang frekuensinya lebih dari 
+        // 1 pada sebuah dokumen
+        // buat posting list term terurut
+        ArrayList<Posting> list = getSortedPostingListWithTermNumber();
+        // looping buat list of term (dictionary)
+        for (int i = 0; i < list.size(); i++) {
+            // cek dictionary kosong?
+            if (getDictionary().isEmpty()) {
+                // buat term
+                Term term = new Term(list.get(i).getTerm());
+                // tambah posting ke posting list utk term ini
+                term.getPostingList().add(list.get(i));
+                // tambah ke dictionary
+                getDictionary().add(term);
+            } else {
+                // dictionary sudah ada isinya
+                Term tempTerm = new Term(list.get(i).getTerm());
+                // pembandingan apakah term sudah ada atau belum
+                // luaran dari binarysearch adalah posisi
+                int position = Collections.binarySearch(getDictionary(), tempTerm);
+                if (position < 0) {
+                    // term baru
+                    // tambah postinglist ke term
+                    tempTerm.getPostingList().add(list.get(i));
+                    // tambahkan term ke dictionary
+                    getDictionary().add(tempTerm);
+                } else {
+                    // term ada
+                    // tambahkan postinglist saja dari existing term
+                    getDictionary().get(position).
+                            getPostingList().add(list.get(i));
+                    // urutkan posting list
+                    Collections.sort(getDictionary().get(position)
+                            .getPostingList());
+                }
+                // urutkan term dictionary
+                Collections.sort(getDictionary());
+            }
+
+        }
+
+    }
+
     //fungsi mencari frekuensi sebuah term dalam sebuah index
-    public int getDocumentFrequency(String term){
+    public int getDocumentFrequency(String term) {
         return 0;
     }
-    
+
     //fungsi untuk mencari invers term dari sebuah index
-    public double getInverseDocumentFrequency(String term){
+    public double getInverseDocumentFrequency(String term) {
         return 0;
     }
 
