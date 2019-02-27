@@ -280,7 +280,14 @@ public class InvertedIndex {
 
     //fungsi mencari frekuensi sebuah term dalam sebuah index
     public int getDocumentFrequency(String term) {
-        return 0;
+        ArrayList<Posting> tempPostings = new ArrayList<Posting>();
+        String[] query = term.split(" ");
+        int N = 0, ni = 0;
+        for (int i = 0; i < listOfDocument.size(); i++) {
+            N = listOfDocument.get(i).getId();
+            ni = tempPostings.get(i).getNumberOfTerm();
+        }
+        return N / ni;
     }
 
     //fungsi untuk mencari invers term dari sebuah index
@@ -288,4 +295,7 @@ public class InvertedIndex {
         return 0;
     }
 
+    public int getTermFrequency(String term, int idDocument) {
+        return 0;
+    }
 }
