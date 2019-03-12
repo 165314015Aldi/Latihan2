@@ -281,9 +281,9 @@ public class InvertedIndex {
     //fungsi mencari frekuensi sebuah term dalam sebuah index
     public int getDocumentFrequency(String term) {
         Term tempTerm = new Term(term);
-        
+
         int pos = Collections.binarySearch(getDictionary(), tempTerm);
-        if (pos>0) {
+        if (pos > 0) {
             return getDictionary().get(pos).getPostingList().size();
         }
         return 0;
@@ -293,66 +293,63 @@ public class InvertedIndex {
     public double getInverseDocumentFrequency(String term) {
         double N = this.listOfDocument.size();
         double n = getDocumentFrequency(term);
-        return Math.log(N/n);
+        return Math.log(N / n);
     }
 
     public int getTermFrequency(String term, int idDocument) {
-        int banyak = 0;
-        for (int i = 0; i < getListOfDocument().size(); i++) {
-            if (getListOfDocument().get(i).getId() == idDocument) {
-                String[] terms = getListOfDocument().get(i).getListofTerm();
-                for (int j = 0; j < terms.length; j++) {
-                    if (term.equalsIgnoreCase(terms[j])) {
-                        banyak = banyak + 1;
-                    }
-                }
+        Document document = new Document();
+        document.setId(idDocument);
+        int pos = Collections.binarySearch(getListOfDocument(), document);
+
+        if (pos >= 0) {
+            ArrayList<Posting> tempPosting = getListOfDocument().get(pos).getListofPosting();
+            Posting posting = new Posting();
+            posting.setTerm(term);
+            int postingIndex = Collections.binarySearch(tempPosting, posting);
+            if (postingIndex >= 0) {
+                return tempPosting.get(postingIndex).getNumberOfTerm();
             }
+            return 0;
         }
-        return banyak;
+
+        return 0;
     }
-    
-    public ArrayList<Posting> makeTFIDF(int idDocument){
-        Document doc = new Document();
+
+    public ArrayList<Posting> makeTFIDF(int idDocument) {
+       Document doc = new Document();
         doc.setId(idDocument);
-        // cek apakah dokument ada
-        int cari = Collections.binarySearch(listOfDocument, doc);
-        if (cari < 0) {
-            // jika document tidak ada
-            return  null;
+        int pos = Collections.binarySearch(getListOfDocument(), doc);
+        if (pos < 0) {
+            return null;
         }
-        else {
-            // jika document ada
-            doc = listOfDocument.get(cari);
-            // membuat tempTerm Term menunjuk ke getDictionary()
-            ArrayList<Term> tempTerm =  getDictionary();
-            // membuat result Posting
-            ArrayList<Posting> result = new ArrayList<Posting>();
-            for (int i = 0; i < tempTerm.size(); i++) {
-                // buat temp Posting
-                Posting temp = new Posting();
-                // panggil fungsi hitung idf
-                double idf = getInverseDocumentFrequency(temp.getTerm());
-                // panggil fungsi hitung tf
-                double tf = temp.getNumberOfTerm();
-                // hitung tf*idf
-                double weight = tf*idf;
-                // set term ke temp
-                temp.setTerm(tempTerm.get(i).getTerm());
-                // set weight ke temp
-                temp.setWeight(weight);
-                // add temp ke result
-                result.add(temp);
+
+//        ArrayList<Term> terms = getDictionary();
+        doc = getListOfDocument().get(pos);
+
+        ArrayList<Posting> result = doc.getListofPosting();
+        for (int i = 0; i < result.size(); i++) {
+            // weight = tf * idf
+            double weight = result.get(i).getNumberOfTerm() * getInverseDocumentFrequency(result.get(i).getTerm());
+
+            result.get(i).setWeight(weight);
+        }
+
+        return result;
+    }
+
+    public double getInnerProduct(ArrayList<Posting> p1, ArrayList<Posting> p2) {
+        double result = 0;
+        for (int i = 0; i < p1.size(); i++) {
+            int pos = Collections.binarySearch(p2, p1.get(i));
+            if (pos >= 0) {
+                result = result + (p1.get(i).getWeight() * p2.get(pos).getWeight());
             }
-            return result;
         }
+
+        return result;
     }
-    
-    public double getInnerProduct(ArrayList<Posting> p1, ArrayList<Posting> p2){
-        
-        return 0.0;
-    }
-    
-    public ArrayList<Posting> getQueryPosting(String term){
+
+public ArrayList<Posting> getQueryPosting(String term){
         // menyimpan query sebagai sebuah document
         Document query = new Document(term);
         // menambahkan document baru
@@ -380,5 +377,20 @@ public class InvertedIndex {
         }
         //        
         return queryPost;
+    }
+
+public ArrayList<Posting> makeQueryTFIDF(String query){
+        Document doc = new Document();
+        doc.setContent(query);
+
+        ArrayList<Posting> result = doc.getListofPosting();
+        for (int i = 0; i < result.size(); i++) {
+            // weight = tf * idf
+            double weight = result.get(i).getNumberOfTerm() * getInverseDocumentFrequency(result.get(i).getTerm());
+
+            result.get(i).setWeight(weight);
+        }
+
+        return result;
     }
 }
