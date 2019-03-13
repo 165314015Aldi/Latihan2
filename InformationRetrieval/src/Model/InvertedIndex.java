@@ -424,7 +424,11 @@ public class InvertedIndex {
      * @return
      */
     public double getLengthOfPosting(ArrayList<Posting> posting) {
-        return 0;
+        double result = 0.0;
+        for (int i = 0; i < posting.size(); i++) {
+            result = result + Math.pow(posting.get(i).getWeight(), 2);
+       }
+        return result;
     }
 
     /**
@@ -434,8 +438,7 @@ public class InvertedIndex {
      * @param posting1
      * @return
      */
-    public double getCosineSimilarity(ArrayList<Posting> posting,
-            ArrayList<Posting> posting1) {
+    public double getCosineSimilarity(ArrayList<Posting> posting, ArrayList<Posting> posting1) {
         return 0;
     }
 
