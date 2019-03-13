@@ -440,7 +440,17 @@ public class InvertedIndex {
      * @return
      */
     public double getCosineSimilarity(ArrayList<Posting> posting, ArrayList<Posting> posting1) {
-        return 0;
+        double atas = getInnerProduct(posting, posting1);
+        double bawah1 = 0.0;
+        double bawah2 = 0.0;
+        for (int i = 0; i < posting.size(); i++) {
+            bawah1 = bawah1 + Math.pow(posting.get(i).getWeight(), 2);
+        }
+        for (int j = 0; j < posting1.size(); j++) {
+            bawah2 = bawah2 + Math.pow(posting1.get(j).getWeight(), 2);
+        }
+        double bawah = Math.sqrt(bawah1*bawah2);
+        return atas/bawah;
     }
 
     /**
@@ -450,6 +460,7 @@ public class InvertedIndex {
      * @return
      */
     public ArrayList<Document> searchTFIDF(String query) {
+        ArrayList<Posting> temp = getQueryPosting(query);
         return null;
     }
 
