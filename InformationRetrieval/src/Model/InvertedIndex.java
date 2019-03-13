@@ -316,25 +316,56 @@ public class InvertedIndex {
     }
 
     public ArrayList<Posting> makeTFIDF(int idDocument) {
-       Document doc = new Document();
-        doc.setId(idDocument);
-        int pos = Collections.binarySearch(getListOfDocument(), doc);
-        if (pos < 0) {
-            return null;
+        //buat PostingList hasil
+        ArrayList<Posting> result = new ArrayList<Posting>();
+        //buat document temporary sesuai passing doccument
+        Document temp = new Document(idDocument);
+        //cek dokumen temp, ada di dalam list document?
+        int cari = Collections.binarySearch(listOfDocument, temp);
+        //jika ada, variable cari akan berisi index, nilai lebih
+        if (cari>=0) {
+            //dokumen ada
+            //baca dokumen sesuai index di list dokumen
+            temp = listOfDocument.get(cari);
+            //buat posting list dengan bobot masih 0
+            result = temp.getListofPosting();
+            //isi bobot dari postiing list
+            for (int i = 0; i < result.size(); i++) {
+                //ambil termnya
+                String tempTerm = result.get(i).getTerm();
+                //cari idf
+                double idf = getInverseDocumentFrequency(tempTerm);
+                //cari tf
+                int tf = result.get(i).getNumberOfTerm();
+                //hitung bobot
+                double bobot = tf * idf;
+                //set bobot pada posting
+                result.get(i).setWeight(bobot);
+            }
+        }else{
+            //dokumen tidak ada
         }
-
-//        ArrayList<Term> terms = getDictionary();
-        doc = getListOfDocument().get(pos);
-
-        ArrayList<Posting> result = doc.getListofPosting();
-        for (int i = 0; i < result.size(); i++) {
-            // weight = tf * idf
-            double weight = result.get(i).getNumberOfTerm() * getInverseDocumentFrequency(result.get(i).getTerm());
-
-            result.get(i).setWeight(weight);
-        }
-
         return result;
+//        
+//        Document doc = new Document();
+//        doc.setId(idDocument);
+//        int pos = Collections.binarySearch(getListOfDocument(), doc);
+//        if (pos < 0) {
+//            return null;
+//        }
+//
+////        ArrayList<Term> terms = getDictionary();
+//        doc = getListOfDocument().get(pos);
+//
+//        ArrayList<Posting> result = doc.getListofPosting();
+//        for (int i = 0; i < result.size(); i++) {
+//            // weight = tf * idf
+//            double weight = result.get(i).getNumberOfTerm() * getInverseDocumentFrequency(result.get(i).getTerm());
+//
+//            result.get(i).setWeight(weight);
+//        }
+//
+//        return result;
     }
 
     public double getInnerProduct(ArrayList<Posting> p1, ArrayList<Posting> p2) {
@@ -349,11 +380,11 @@ public class InvertedIndex {
         return result;
     }
 
-public ArrayList<Posting> getQueryPosting(String term){
+    public ArrayList<Posting> getQueryPosting(String term) {
         // menyimpan query sebagai sebuah document
         Document query = new Document(term);
         // menambahkan document baru
-        addNewDocument(query); 
+        addNewDocument(query);
         // menyiapkan queryPost Posting
         ArrayList<Posting> queryPost = new ArrayList<>();
         // looping sebanyak document yang disimpan
@@ -363,7 +394,7 @@ public ArrayList<Posting> getQueryPosting(String term){
             // looping sebanyak termQuery
             for (int j = 0; j < termQuery.length; j++) {
                 // buat objek post Posting
-                Posting post = new Posting(termQuery[j], 
+                Posting post = new Posting(termQuery[j],
                         getListOfDocument().get(i));
                 // tambahkan post ke queryPost
                 queryPost.add(post);
@@ -372,14 +403,14 @@ public ArrayList<Posting> getQueryPosting(String term){
         // 
         double tf = 0;
         for (int i = 0; i < queryPost.size(); i++) {
-            tf = getTermFrequency(queryPost.get(i).getTerm(),i);
+            tf = getTermFrequency(queryPost.get(i).getTerm(), i);
             makeTFIDF(i);
         }
         //        
         return queryPost;
     }
 
-public ArrayList<Posting> makeQueryTFIDF(String query){
+    public ArrayList<Posting> makeQueryTFIDF(String query) {
         Document doc = new Document();
         doc.setContent(query);
 
