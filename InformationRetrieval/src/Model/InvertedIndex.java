@@ -428,7 +428,8 @@ public class InvertedIndex {
         for (int i = 0; i < posting.size(); i++) {
             result = result + Math.pow(posting.get(i).getWeight(), 2);
        }
-        return result;
+        double hasil = Math.sqrt(result);
+        return hasil;
     }
 
     /**
