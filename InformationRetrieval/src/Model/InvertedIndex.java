@@ -342,6 +342,7 @@ public class InvertedIndex {
                 //set bobot pada posting
                 result.get(i).setWeight(bobot);
             }
+            Collections.sort(result);
         }else{
             //dokumen tidak ada
         }
