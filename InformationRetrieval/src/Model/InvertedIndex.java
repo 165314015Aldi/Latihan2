@@ -382,7 +382,7 @@ public class InvertedIndex {
             //cari posting di p2
             boolean found = false;
             for (int j = 0; j < p2.size() && found == false; j++) {
-                Posting temp1 = p2.get(i);
+                Posting temp1 = p2.get(j);
                 if (temp1.getTerm().equalsIgnoreCase(temp.getTerm())) {
                     //term sama
                     found = true;
