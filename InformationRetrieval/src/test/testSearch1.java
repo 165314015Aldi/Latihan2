@@ -29,40 +29,11 @@ public class testSearch1 {
         index.addNewDocument(doc1);
         index.addNewDocument(doc2);
         index.addNewDocument(doc3);
-        
-        // panggil fungsi search
+        // bikin dictionary
         index.makeDictionaryWithTermNumber();
-        ArrayList<Term> result = index.getDictionary();
-        // tampilkan isi document dan id-nya
-//        for (int i = 0; i < result.size(); i++) {
-//            System.out.println("Term = "+result.get(i).getTerm()+
-//                    ",numberOfDocument = "+result.get(i).getNumberOfDocument());
-//            ArrayList<Posting> tempPosting = result.get(i).getPostingList();
-//            for (int j = 0; j < tempPosting.size(); j++) {
-//                System.out.println("id_doc = "+tempPosting.get(j).getDocument().getId()
-//                +", numberofTerm = "+tempPosting.get(j).getNumberOfTerm());
-//            }
-//        }
         
-        // number of document
-        String tempString = "silver";
-        int result2 = index.getDocumentFrequency(tempString);
-        System.out.println("Number of Doc with "+tempString+" is "+result2);
-        
-        // idf
-        String tempString1 = "silver";
-        double result3 = index.getInverseDocumentFrequency(tempString1);
-        System.out.println("IDF of "+tempString1+" is "+result3);
-        
-        // tf
-        // idf
-        String tempString2 = "truck";
-        int idDoc=2;
-        int result4 = index.getTermFrequency(tempString2, idDoc);
-        System.out.println("TF of "+tempString2+" in idDoc = "+idDoc+ " is "+result4);
-        
-        // make arraylist of TFIDF
-        idDoc=1;
+        // id dokumen
+        int idDoc =1;
         System.out.println("Id Dokument = "+idDoc);
         ArrayList<Posting> tempDocWeight = index.makeTFIDF(idDoc);
         for (int i = 0; i < tempDocWeight.size(); i++) {
@@ -72,21 +43,8 @@ public class testSearch1 {
                     ", weight= "+tempPost.getWeight());
         }
         
-        idDoc=2;
-        System.out.println("Id Dokument = "+idDoc);
-        ArrayList<Posting> temp1DocWeight = index.makeTFIDF(idDoc);
-        for (int i = 0; i < temp1DocWeight.size(); i++) {
-            Posting tempPost = temp1DocWeight.get(i);
-            System.out.println("term= " + tempPost.getTerm()
-                    + ", tf = " + tempPost.getNumberOfTerm()
-                    + ", weight= " + tempPost.getWeight());
-        }
+        System.out.println("Length of Dokumen = "+index.getLengthOfPosting(tempDocWeight));
         
-        // panggil fungsi inner product
-//        double resultProduct = index.getInnerProduct(temp1DocWeight, tempDocWeight);
-//        System.out.println("Hasil inner product doc1 dan doc2 = "+resultProduct);
-        
-        //panggil fungsi buat postinglist dar sebuah query
         String query = "silver gold truck";
         System.out.println("query = "+query);
         ArrayList<Posting> queryPostingList = index.getQueryPosting(query);
@@ -96,9 +54,9 @@ public class testSearch1 {
                     ", tf = "+tempPost.getNumberOfTerm()+
                     ", weight= "+tempPost.getWeight());
         }
-        // panggil fungsi inner product
-        double result1Product = index.getInnerProduct(queryPostingList, tempDocWeight);
-        System.out.println("Hasil inner product query dan doc1= "+result1Product);
-//        
+        
+        // test cosine similarity
+        System.out.println("Cosine similarity = "+index.getCosineSimilarity(queryPostingList, 
+                tempDocWeight));
     }
 }
