@@ -382,6 +382,9 @@ public class InvertedIndex {
     }
 
     public ArrayList<Posting> getQueryPosting(String term) {
+        
+        
+        
         // menyimpan query sebagai sebuah document
         Document query = new Document(term);
         // menambahkan document baru
