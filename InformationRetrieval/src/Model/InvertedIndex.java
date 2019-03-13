@@ -427,7 +427,7 @@ public class InvertedIndex {
         double result = 0.0;
         for (int i = 0; i < posting.size(); i++) {
             result = result + Math.pow(posting.get(i).getWeight(), 2);
-       }
+        }
         double hasil = Math.sqrt(result);
         return hasil;
     }
@@ -449,26 +449,29 @@ public class InvertedIndex {
         for (int j = 0; j < posting1.size(); j++) {
             bawah2 = bawah2 + Math.pow(posting1.get(j).getWeight(), 2);
         }
-        double bawah = Math.sqrt(bawah1*bawah2);
-        return atas/bawah;
+        double bawah = Math.sqrt(bawah1 * bawah2);
+        double hasil = atas / bawah;
+        return hasil;
     }
 
     /**
      * Fungsi untuk mencari berdasar nilai TFIDF
+     *
      * @param query
-     * @return 
+     * @return
      */
-    public ArrayList<SearchingResult> searchTFIDF(String query){
+    public ArrayList<SearchingResult> searchTFIDF(String query) {
         return null;
     }
-    
+
     /**
      * Fungsi untuk mencari dokumen berdasarkan cosine similarity
+     *
      * @param query
-     * @return 
+     * @return
      */
-    public ArrayList<SearchingResult> searchCosineSimilarity(String query){
+    public ArrayList<SearchingResult> searchCosineSimilarity(String query) {
         return null;
-}
-    
+    }
+
 }
