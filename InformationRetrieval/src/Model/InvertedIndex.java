@@ -281,13 +281,20 @@ public class InvertedIndex {
     //fungsi mencari frekuensi sebuah term dalam sebuah index
     public int getDocumentFrequency(String term) {
         Term tempTerm = new Term(term);
-
-        int pos = Collections.binarySearch(getDictionary(), tempTerm);
-        if (pos > 0) {
-            return getDictionary().get(pos).getPostingList().size();
+        // cek apakah term ada di dictionary
+        int index = Collections.binarySearch(dictionary, tempTerm);
+        if (index > 0) {
+            // term ada
+            // ambil ArrayList<Posting> dari object term
+            ArrayList<Posting> tempPosting = dictionary.get(index)
+                    .getPostingList();
+            // return ukuran posting list
+            return tempPosting.size();
+        } else {
+            // term tidak ada
+            return -1;
         }
-        return 0;
-    }
+}
 
     //fungsi untuk mencari invers term dari sebuah index
     public double getInverseDocumentFrequency(String term) {
