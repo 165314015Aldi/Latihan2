@@ -405,6 +405,26 @@ public class InvertedIndex {
     }
 
     public ArrayList<Posting> getQueryPosting(String term) {
+// buat dokumen
+        Document temp = new Document(-1, query);
+        // buat posting list
+        ArrayList<Posting> result = temp.getListofPosting();
+        // hitung bobot
+        // isi bobot dari posting list
+        for (int i = 0; i < result.size(); i++) {
+            // ambil term
+            String tempTerm = result.get(i).getTerm();
+            // cari idf
+            double idf = getInverseDocumentFrequency(tempTerm);
+            // cari tf
+            int tf = result.get(i).getNumberOfTerm();
+            // hitung bobot
+            double bobot = tf * idf;
+            // set bobot pada posting
+            result.get(i).setWeight(bobot);
+        }
+        Collections.sort(result);
+        return result;
 
         // menyimpan query sebagai sebuah document
         Document query = new Document(term);
