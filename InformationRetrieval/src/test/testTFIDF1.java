@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author admin
+ * @author AxYxA
  */
 public class testTFIDF1 {
 

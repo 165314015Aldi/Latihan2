@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Aureli Isaias
+ * @author AxYxA
  */
 public class testTFIDF7 {
     public static void main(String[] args) {

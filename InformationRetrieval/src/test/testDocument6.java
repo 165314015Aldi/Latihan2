@@ -12,7 +12,7 @@ import Model.Term;
 
 /**
  *
- * @author admin
+ * @author AxYxA
  */
 public class testDocument6 {
 

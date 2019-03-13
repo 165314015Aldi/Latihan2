@@ -10,7 +10,7 @@ import java.util.Collections;
 
 /**
  *
- * @author admin
+ * @author AxYxA
  */
 public class Document implements Comparable<Document>{
 
