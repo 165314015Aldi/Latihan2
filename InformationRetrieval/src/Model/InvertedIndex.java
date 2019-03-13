@@ -391,6 +391,7 @@ public class InvertedIndex {
                 }
             }
         }
+        return result;
 
 //        double result = 0;
 //        for (int i = 0; i < p1.size(); i++) {
