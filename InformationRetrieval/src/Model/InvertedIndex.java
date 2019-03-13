@@ -294,7 +294,7 @@ public class InvertedIndex {
             // term tidak ada
             return -1;
         }
-}
+    }
 
     //fungsi untuk mencari invers term dari sebuah index
     public double getInverseDocumentFrequency(String term) {
@@ -315,7 +315,7 @@ public class InvertedIndex {
             // nilai idf = 0
             return 0.0;
         }
-}
+    }
 
     public int getTermFrequency(String term, int idDocument) {
         Document document = new Document();
@@ -333,7 +333,7 @@ public class InvertedIndex {
         }
 
         return 0;
-}
+    }
 
     public ArrayList<Posting> makeTFIDF(int idDocument) {
         // buat posting list hasil
@@ -367,10 +367,9 @@ public class InvertedIndex {
             // dokumen tidak ada
         }
         return result;
-}
+    }
 
-    public double getInnerProduct(ArrayList<Posting> p1,
-            ArrayList<Posting> p2) {
+    public double getInnerProduct(ArrayList<Posting> p1, ArrayList<Posting> p2) {
         // urutkan posting list
         Collections.sort(p2);
         Collections.sort(p1);
@@ -393,7 +392,7 @@ public class InvertedIndex {
             }
         }
         return result;
-}
+    }
 
     public ArrayList<Posting> getQueryPosting(String query) {
         // buat dokumen
@@ -416,5 +415,5 @@ public class InvertedIndex {
         }
         Collections.sort(result);
         return result;
-}
+    }
 }
