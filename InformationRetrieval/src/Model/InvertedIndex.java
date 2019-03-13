@@ -455,23 +455,20 @@ public class InvertedIndex {
 
     /**
      * Fungsi untuk mencari berdasar nilai TFIDF
-     *
      * @param query
-     * @return
+     * @return 
      */
-    public ArrayList<Document> searchTFIDF(String query) {
-        ArrayList<Posting> temp = getQueryPosting(query);
+    public ArrayList<SearchingResult> searchTFIDF(String query){
         return null;
     }
-
+    
     /**
      * Fungsi untuk mencari dokumen berdasarkan cosine similarity
-     *
      * @param query
-     * @return
+     * @return 
      */
-    public ArrayList<Document> searchCosineSimilarity(String query) {
+    public ArrayList<SearchingResult> searchCosineSimilarity(String query){
         return null;
-    }
+}
     
 }
