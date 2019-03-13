@@ -323,7 +323,7 @@ public class InvertedIndex {
         //cek dokumen temp, ada di dalam list document?
         int cari = Collections.binarySearch(listOfDocument, temp);
         //jika ada, variable cari akan berisi index, nilai lebih
-        if (cari>=0) {
+        if (cari >= 0) {
             //dokumen ada
             //baca dokumen sesuai index di list dokumen
             temp = listOfDocument.get(cari);
@@ -343,7 +343,7 @@ public class InvertedIndex {
                 result.get(i).setWeight(bobot);
             }
             Collections.sort(result);
-        }else{
+        } else {
             //dokumen tidak ada
         }
         return result;
@@ -370,21 +370,41 @@ public class InvertedIndex {
     }
 
     public double getInnerProduct(ArrayList<Posting> p1, ArrayList<Posting> p2) {
-        double result = 0;
+        //urutkan posting list
+        Collections.sort(p1);
+        Collections.sort(p2);
+        //buat temp hasil
+        double result = 0.0;
+        //looping dari posting list p1
         for (int i = 0; i < p1.size(); i++) {
-            int pos = Collections.binarySearch(p2, p1.get(i));
-            if (pos >= 0) {
-                result = result + (p1.get(i).getWeight() * p2.get(pos).getWeight());
+            //ambil temp
+            Posting temp = p1.get(i);
+            //cari posting di p2
+            boolean found = false;
+            for (int j = 0; j < p2.size() && found == false; j++) {
+                Posting temp1 = p2.get(i);
+                if (temp1.getTerm().equalsIgnoreCase(temp.getTerm())) {
+                    //term sama
+                    found = true;
+                    //kalikan bobot untuk term yang sama
+                    result = result + (temp1.getWeight() * temp.getWeight());
+                }
             }
         }
 
-        return result;
+//        double result = 0;
+//        for (int i = 0; i < p1.size(); i++) {
+//            int pos = Collections.binarySearch(p2, p1.get(i));
+//            if (pos >= 0) {
+//                result = result + (p1.get(i).getWeight() * p2.get(pos).getWeight());
+//            }
+//        }
+//
+//        return result;
     }
 
     public ArrayList<Posting> getQueryPosting(String term) {
-        
-        
-        
+
         // menyimpan query sebagai sebuah document
         Document query = new Document(term);
         // menambahkan document baru
