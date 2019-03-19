@@ -461,7 +461,21 @@ public class InvertedIndex {
      * @return
      */
     public ArrayList<SearchingResult> searchTFIDF(String query) {
-        return null;
+        ArrayList<SearchingResult> hasil = new ArrayList<>();
+        ArrayList<Posting> pQuery = getQueryPosting(query);
+        double panjangQuery = getLengthOfPosting(pQuery);
+        for (int i = 0; i < listOfDocument.size(); i++) {
+            ArrayList<Posting> posting = makeTFIDF(listOfDocument.get(i).getId());
+            ArrayList<Posting> tamp = new ArrayList<>();
+            if (pQuery.get(i).getWeight() == posting.get(i).getWeight()) {
+                double panjangDokumen = getLengthOfPosting(posting);
+                double result = posting.get(i).getWeight() / panjangDokumen;
+                double innerP = getInnerProduct(pQuery, posting);
+                SearchingResult hasilCari = new SearchingResult(innerP, posting.get(i).getDocument());
+                hasil.add(hasilCari);
+            }
+        }
+        return hasil;
     }
 
     /**
@@ -471,7 +485,16 @@ public class InvertedIndex {
      * @return
      */
     public ArrayList<SearchingResult> searchCosineSimilarity(String query) {
-        return null;
+        ArrayList<SearchingResult> hasil = new ArrayList<SearchingResult>();
+        ArrayList<Posting> posting = getQueryPosting(query);
+        for (int i = 0; i < listOfDocument.size(); i++) {
+            ArrayList<Posting> temp = makeTFIDF(listOfDocument.get(i).getId());
+            double cosineSimilarity = getCosineSimilarity(posting, temp);
+            SearchingResult hasilcari = new SearchingResult(cosineSimilarity, listOfDocument.get(i));
+            hasil.add(hasilcari);
+        }
+        Collections.sort(hasil);
+        return hasil;
     }
 
 }
