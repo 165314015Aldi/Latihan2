@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,14 +13,14 @@ import java.util.Collections;
  *
  * @author AxYxA
  */
-public class Document implements Comparable<Document>{
+public class Document implements Comparable<Document> {
 
     private int id;
     private String content;
 
     public Document() {
     }
-    
+
     public Document(int id) {
         this.id = id;
     }
@@ -99,5 +100,9 @@ public class Document implements Comparable<Document>{
     @Override
     public int compareTo(Document t) {
         return id - t.getId();
+    }
+
+    public void readFile(int idDoc, File file) {
+
     }
 }
