@@ -490,7 +490,18 @@ public class InvertedIndex {
         return hasil;
     }
 
-    public void readDirectory(File directory){
-        
+    public void readDirectory(File directory) {
+        int i = 1;
+        for (final File fileEntry : directory.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                readDirectory(fileEntry);
+            } else {
+                Document doc = new Document();
+                doc.readFile(i, fileEntry);
+                listOfDocument.add(doc);
+                i++;
+//                System.out.println(fileEntry.getName());
+            }
+        }
     }
 }
