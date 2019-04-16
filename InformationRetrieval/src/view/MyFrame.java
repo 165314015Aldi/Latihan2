@@ -104,10 +104,11 @@ public class MyFrame extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
-        int returnVal;
-        returnVal = fileChooser.showOpenDialog(this);
         // set fileChooser hanya directory
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        
+        int returnVal;
+        returnVal = fileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             // baca directory
             File dir = fileChooser.getSelectedFile();
