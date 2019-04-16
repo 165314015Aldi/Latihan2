@@ -5,6 +5,10 @@
  */
 package view;
 
+import Model.Document;
+import Model.Posting;
+import java.util.ArrayList;
+
 /**
  *
  * @author admin
@@ -31,6 +35,9 @@ public class SearchDialog extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TabelHasil = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -42,6 +49,21 @@ public class SearchDialog extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        TabelHasil.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "idDokumen", "Content", "Cosine Similarity"
+            }
+        ));
+        jScrollPane2.setViewportView(TabelHasil);
+
+        jLabel3.setText("Hasil");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,6 +77,13 @@ public class SearchDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(13, 13, 13)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3))
+                    .addContainerGap(13, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -65,12 +94,31 @@ public class SearchDialog extends javax.swing.JDialog {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addContainerGap(328, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(119, 119, 119)
+                    .addComponent(jLabel3)
+                    .addGap(18, 18, 18)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(119, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        MyFrame.index.makeDictionaryWithTermNumber();
+        String query = jTextField1.getText();
+        
+        ArrayList<Posting> queryPostingList = MyFrame.index.getQueryPosting(query);
+        
+        ArrayList<Document> listDocs = MyFrame.index.getListOfDocument();
+        for (int i = 0; i < listDocs.size(); i++) {
+            ArrayList<Posting> tempDocWeight = MyFrame.index.makeTFIDF(listDocs.get(i).getId());
+            TabelHasil.setValueAt(listDocs.get(i).getId(), i, 0);
+            TabelHasil.setValueAt(listDocs.get(i).getContent(), i, 1);
+            TabelHasil.setValueAt((MyFrame.index.getCosineSimilarity(queryPostingList, tempDocWeight)), i, 2);
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -117,8 +165,11 @@ public class SearchDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TabelHasil;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
