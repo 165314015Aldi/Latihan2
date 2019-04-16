@@ -106,7 +106,7 @@ public class MyFrame extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser();
         int returnVal;
         returnVal = fileChooser.showOpenDialog(this);
-        // set fileCjooser hanya directory
+        // set fileChooser hanya directory
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             // baca directory

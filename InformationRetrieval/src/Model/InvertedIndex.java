@@ -491,17 +491,21 @@ public class InvertedIndex {
     }
 
     public void readDirectory(File directory) {
-        int i = 1;
-        for (final File fileEntry : directory.listFiles()) {
-            if (fileEntry.isDirectory()) {
-                readDirectory(fileEntry);
-            } else {
+        // baca isi directory
+        File files[] = directory.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                // buat document baru
                 Document doc = new Document();
-                doc.readFile(i, fileEntry);
-                listOfDocument.add(doc);
-                i++;
-//                System.out.println(fileEntry.getName());
+                doc.setId(i); // set idDoc sama dengan i
+                // baca isi file
+                // Isi file disimpan di atribut content dari objeck document
+                // variabel i merupakan idDocument;
+                File file = files[i];
+                doc.readFile(i+1, file);
+                // masukkan file isi directory ke list of document pada obye index
+                this.addNewDocument(doc);
             }
-        }
+            // lakukan indexing atau buat dictionary
+            this.makeDictionaryWithTermNumber();
     }
 }
