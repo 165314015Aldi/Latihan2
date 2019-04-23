@@ -22,7 +22,7 @@ import org.apache.lucene.util.Version;
  */
 public class TestStemWordToken {
     public static void main(String[] args) {
-        String text = "I want to break my freedom";
+        String text = "He killed my bears";
         System.out.println("Old Text = "+text);
         Version matchVersion = Version.LUCENE_7_7_0;
         Analyzer analyzer = new StandardAnalyzer();
