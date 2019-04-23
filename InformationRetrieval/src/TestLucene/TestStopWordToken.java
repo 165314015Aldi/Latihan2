@@ -19,7 +19,7 @@ import org.apache.lucene.util.Version;
  *
  * @author admin
  */
-public class TestTokenV2 {
+public class TestStopWordToken {
     public static void main(String[] args) {
         String text = "I want to break my freedom";
         System.out.println("Old Text = "+text);
