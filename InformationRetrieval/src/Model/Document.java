@@ -31,6 +31,15 @@ public class Document implements Comparable<Document> {
 
     private int id;
     private String content;
+    private String realContent;
+
+    public String getRealContent() {
+        return realContent;
+    }
+
+    public void setRealContent(String realContent) {
+        this.realContent = realContent;
+    }
 
     public Document() {
     }
@@ -41,11 +50,18 @@ public class Document implements Comparable<Document> {
 
     public Document(String content) {
         this.content = content;
+        this.realContent = content;
     }
 
     public Document(int id, String content) {
         this.id = id;
         this.content = content;
+        this.realContent = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Document{" + "id=" + id + ", content=" + content + ", realContent=" + realContent + '}';
     }
 
     public int getId() {
